@@ -20,7 +20,7 @@ All classes come with a hopefully correct implementation of java.sql.Wrapper.
         git clone https://github.com/hsch/jdbc-wrappers.git
         cd jdbc-wrappers
 
-2. Run Build:
+2. Run the build:
        
         ./gradlew build
        
