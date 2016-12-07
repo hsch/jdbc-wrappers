@@ -17,16 +17,16 @@ All classes come with a hopefully correct implementation of java.sql.Wrapper.
 
 1. Clone this repository:
        
-        git clone git@github.com:hsch/jdbc-wrappers.git
+        git clone https://github.com/hsch/jdbc-wrappers.git
         cd jdbc-wrappers
 
 2. Run Build:
        
-        gradlew build
+        ./gradlew build
        
 3. Find your library
         
-        ls -la build/libs/jdbc-wrappers.jar
+        ls -la ./build/libs/jdbc-wrappers.jar
 
 
 # License
