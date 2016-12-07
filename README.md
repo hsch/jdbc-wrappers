@@ -13,6 +13,16 @@ to wrap, proxy, or decorate them:
 
 All classes come with a hopefully correct implementation of java.sql.Wrapper.
 
+# Maven
+
+Add this dependency to your Maven build:
+
+     <dependency>
+       <groupId>io.trbl</groupId>
+       <artifactId>jdbc-wrappers</artifactId>
+       <version>1.0</version>
+     </dependency>
+
 # Build
 
 1. Clone this repository:
@@ -28,6 +38,33 @@ All classes come with a hopefully correct implementation of java.sql.Wrapper.
         
         ls -la ./build/libs/jdbc-wrappers.jar
 
+# Release
+
+### Prerequisites
+
+- This repository as a local clone
+- An account at https://oss.sonatype.org/
+- A PGP key published, e.g. to pgp.mit.edu
+
+### Configuration
+
+Create a ```gradle.properties``` file and be careful not to commit it:
+
+    signing.keyId=
+    signing.password=
+    signing.secretKeyRingFile=
+    
+    sonatypeUserName=
+    sonatypePassword=
+
+
+### Release
+
+1. Publish the artifact to the staging repository:
+
+        ./gradlew uploadArchives
+        
+2. Log in to https://oss.sonatype.org/, find the repository, and close, then release it.
 
 # License
 

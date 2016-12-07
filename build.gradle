@@ -1,9 +1,69 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
   mavenCentral()
+}
+
+task sourcesJar(type: Jar) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+  classifier = 'javadoc'
+  from javadoc
+}
+
+artifacts {
+  archives jar
+  archives sourcesJar
+  archives javadocJar
+}
+
+signing {
+  sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment {
+        MavenDeployment deployment -> signing.signPom(deployment)
+      }
+      repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+        authentication(userName: sonatypeUserName, password: sonatypePassword)
+      }
+      pom.project {
+        groupId 'io.trbl'
+        artifactId 'jdbc-wrappers'
+        version '1.0'
+        name 'jdbc-wrappers by TRBL.IO'
+        description 'jdbc-wrappers is set of Java decorator classes that wrap the most common JDBC interfaces.'
+        url 'https://github.com/hsch/jdbc-wrappers'
+        scm {
+          url 'git@github.com:hsch/jdbc-wrappers.git'
+          connection 'scm:git:git@github.com:hsch/jdbc-wrappers.git'
+          developerConnection 'scm:git:git@github.com:hsch/jdbc-wrappers.git'
+        }
+        licenses {
+          license {
+            name 'The MIT License'
+             url 'https://opensource.org/licenses/MIT'
+          }
+        }
+        developers {
+          developer {
+            name 'Hendrik Schnepel'
+            email 'hendrik.schnepel@gmail.com'
+          }
+        }
+      }
+    }
+  }
 }
