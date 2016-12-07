@@ -4,12 +4,12 @@ jdbc-wrappers is an MIT-licensed set of Java decorator classes that wrap
 the most common JDBC interfaces. It may come in handy when, well, you need
 to wrap, proxy, or decorate them:
 
-- java.sql.CallableStatement > io.trbl.jdbc.CallableStatementWrapper
-- java.sql.Connection > io.trbl.jdbc.ConnectionWrapper
-- java.sql.DataSource > io.trbl.jdbc.DataSourceWrapper
-- java.sql.PreparedStatement > io.trbl.jdbc.PreparedStatementWrapper
-- java.sql.ResultSet > io.trbl.jdbc.ResultSetWrapper
-- java.sql.Statement > io.trbl.jdbc.StatementWrapper
+- java.sql.CallableStatement > io.trbl.sql.CallableStatementWrapper
+- java.sql.Connection > io.trbl.sql.ConnectionWrapper
+- java.sql.DataSource > io.trbl.sql.DataSourceWrapper
+- java.sql.PreparedStatement > io.trbl.sql.PreparedStatementWrapper
+- java.sql.ResultSet > io.trbl.sql.ResultSetWrapper
+- java.sql.Statement > io.trbl.sql.StatementWrapper
 
 All classes come with a hopefully correct implementation of java.sql.Wrapper.
 

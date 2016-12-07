@@ -20,55 +20,49 @@
  * SOFTWARE.
  */
 
-package io.trbl.jdbc;
+package io.trbl.sql;
 
-import java.io.PrintWriter;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLFeatureNotSupportedException;
-import java.util.logging.Logger;
+import java.sql.Wrapper;
 
-import javax.sql.DataSource;
+public class BasicWrapper<T extends Wrapper> implements Wrapper {
 
-public class DataSourceWrapper extends BasicWrapper<DataSource>implements DataSource {
+  protected final T target;
 
-  public DataSourceWrapper(final DataSource target) {
-    super(target);
+  public BasicWrapper(final T target) {
+    if (target == null) {
+      throw new NullPointerException("Wrapped object must not be null");
+    }
+    this.target = target;
   }
 
   @Override
-  public Connection getConnection() throws SQLException {
-    return target.getConnection();
+  public final boolean isWrapperFor(final Class<?> iface) throws SQLException {
+    if (iface.isAssignableFrom(getClass())) {
+      return true;
+    }
+    else if (iface.isAssignableFrom(target.getClass())) {
+      return true;
+    }
+    else if (target.isWrapperFor(iface)) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   @Override
-  public Connection getConnection(final String username, final String password) throws SQLException {
-    return target.getConnection(username, password);
-  }
-
-  @Override
-  public PrintWriter getLogWriter() throws SQLException {
-    return target.getLogWriter();
-  }
-
-  @Override
-  public void setLogWriter(final PrintWriter out) throws SQLException {
-    target.setLogWriter(out);
-  }
-
-  @Override
-  public void setLoginTimeout(final int seconds) throws SQLException {
-    target.setLoginTimeout(seconds);
-  }
-
-  @Override
-  public int getLoginTimeout() throws SQLException {
-    return target.getLoginTimeout();
-  }
-
-  @Override
-  public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-    return target.getParentLogger();
+  public final <I> I unwrap(final Class<I> iface) throws SQLException {
+    if (iface.isAssignableFrom(getClass())) {
+      return iface.cast(this);
+    }
+    else if (iface.isAssignableFrom(target.getClass())) {
+      return iface.cast(target);
+    }
+    else {
+      return target.unwrap(iface);
+    }
   }
 
 }

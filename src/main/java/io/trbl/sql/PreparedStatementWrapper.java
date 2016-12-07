@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.trbl.jdbc;
+package io.trbl.sql;
 
 import java.io.InputStream;
 import java.io.Reader;

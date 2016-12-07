@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.trbl.jdbc;
+package io.trbl.sql;
 
 import java.sql.Array;
 import java.sql.Blob;
